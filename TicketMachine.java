@@ -19,7 +19,11 @@ public class TicketMachine
     private int total;
     private int discount = 10;
     private int saving = price* discount; // multiply them and store in saving.
-    
+    private boolean discountActive = false;
+    private int amountLeftToPay;
+    private int totalCount;
+    private int currentPrice = discountActive ? price / 2 : price; 
+    private int amountLleftToPay = currentPrice - balance; // after printing discountActive = false;
 
     /**
      * Create a machine that issues tickets of the given price.
@@ -29,6 +33,7 @@ public class TicketMachine
         price = cost;
         balance = 0;
         total = 0;
+        int saving = price * discount;
     }
  
     /**
@@ -51,6 +56,16 @@ public class TicketMachine
         int amount = balance;
         balance = 0;
         return amount;
+    }
+    
+    public void activateDiscount(){
+        discountActive = true;
+    }
+    
+    public int emptyMachine() {
+        int oldTotal = total;
+        total = 0;
+        return oldTotal;
     }
     
     public void affordable (int budget) {
@@ -83,7 +98,8 @@ public class TicketMachine
      * an error message if more money is required.
      */
     public void printTicket()
-    {
+    
+    {  
         if(balance >= price) {
             // Simulate the printing of a ticket.
             System.out.println("##################");
@@ -98,6 +114,9 @@ public class TicketMachine
             total = total + price;
             // Reduce the balance by the price.
             balance = balance - price;
+        }
+        else{ 
+            System.out.println("Please insert" + amountLeftToPay + "more cents.");
         }
     }
 
