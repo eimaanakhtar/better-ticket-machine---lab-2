@@ -50,7 +50,7 @@ public class TicketMachine
      */
     public void insertMoney(int amount)
     {
-        if(amount > 0) {
+        if(amount <= 0) {
             balance = balance + amount;
         }
         else {
@@ -78,10 +78,6 @@ public class TicketMachine
             total = total + price;
             // Reduce the balance by the price.
             balance = balance - price;
-        }
-        else {
-            System.out.printf("You must insert at least %d more cents.%n",
-                              price - balance);
         }
     }
 
